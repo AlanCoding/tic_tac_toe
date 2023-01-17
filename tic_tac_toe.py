@@ -21,6 +21,18 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:  # BEGIN response from second question
+            # get the coordinates of the click
+            x, y = event.pos
+            # calculate the corresponding cell on the game board
+            cell_x = x // 133
+            cell_y = y // 133
+            # check if the cell is empty
+            if board[cell_y][cell_x] == 0:
+                # draw an X
+                board[cell_y][cell_x] = 1
+                # update the display
+                pygame.display.flip()
 
     # clear the screen
     screen.fill(white)
