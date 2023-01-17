@@ -39,6 +39,7 @@ while running:
                     whos_turn = 1
                 # update the display
                 pygame.display.flip()
+        # END response from second question
 
     # clear the screen
     screen.fill(white)
@@ -54,6 +55,57 @@ while running:
                 pygame.draw.line(screen, black, ((x+1)*133, y*133), (x*133, (y+1)*133), 2)
             else:
                 pygame.draw.circle(screen, black, (int((x+0.5)*133), int((y+0.5)*133)), int(133/2), 2)
+
+    # BEGIN response from third question
+    # check rows
+    for row in board:
+        if all(val == 1 for val in row):
+            # draw a line across the top of the row
+            pygame.draw.line(screen, black, (0, board.index(row)*133), (400, board.index(row)*133), 5)
+            print("X wins!")
+            running = False
+        elif all(val == 2 for val in row):
+            # draw a line across the top of the row
+            pygame.draw.line(screen, black, (0, board.index(row)*133), (400, board.index(row)*133), 5)
+            print("O wins!")
+            running = False
+
+    # check columns
+    for col in range(3):
+        if board[0][col] == board[1][col] == board[2][col] == 1:
+            # draw a line down the left side of the column
+            pygame.draw.line(screen, black, (col*133, 0), (col*133, 400), 5)
+            print("X wins!")
+            running = False
+        elif board[0][col] == board[1][col] == board[2][col] == 2:
+            # draw a line down the left side of the column
+            pygame.draw.line(screen, black, (col*133, 0), (col*133, 400), 5)
+            print("O wins!")
+            running = False
+
+    # check diagonals
+    if board[0][0] == board[1][1] == board[2][2] == 1:
+        # draw a line from top-left to bottom-right
+        pygame.draw.line(screen, black, (0, 0), (400, 400), 5)
+        print("X wins!")
+        running = False
+    elif board[0][0] == board[1][1] == board[2][2] == 2:
+        # draw a line from top-left to bottom-right
+        pygame.draw.line(screen, black, (0, 0), (400, 400), 5)
+        print("O wins!")
+        running = False
+
+    if board[0][2] == board[1][1] == board[2][0] == 1:
+        # draw a line from top-right to bottom-left
+        pygame.draw.line(screen, black, (400, 0), (0, 400), 5)
+        print("X wins!")
+        running = False
+    elif board[0][2] == board[1][1] == board[2][0] == 2:
+        # draw a line from top-right to bottom-left
+        pygame.draw.line(screen, black, (400, 0), (0, 400), 5)
+        print("O wins!")
+        running = False
+    # END response from third question
 
     # update the display
     pygame.display.flip()
